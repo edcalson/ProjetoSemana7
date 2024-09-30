@@ -1,4 +1,6 @@
-public class ContaCorrente {
+import java.io.Serializable;
+
+public class ContaCorrente implements Serializable {
     private double saldo;
 
     public double getSaldo(){
