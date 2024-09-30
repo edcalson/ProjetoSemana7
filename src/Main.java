@@ -1,17 +1,31 @@
 public class Main {
-    static int realizarDivisao(int numerador, int denominador){
-        return numerador / denominador;
-
-    }
-
     public static void main(String[] args) {
-        try{
-            System.out.println(realizarDivisao( 4, 2));
-            System.out.println(realizarDivisao( 35, 5));
-            System.out.println(realizarDivisao( 40, 0));
-        } catch (ArithmeticException e) {
+
+        ContaCorrente contaExemplo = new ContaCorrente(1000);
+        System.out.println("O saldo atual é de R$" + contaExemplo.getSaldo());
+
+           // vamos sacar R$ 800
+        try {
+            contaExemplo.sacar(80000);
+            System.out.println("O saldo atual é de R$" + contaExemplo.getSaldo());
+        } catch (SaldoInsuficienteException e) {
             System.out.println(e.getMessage());
-            System.out.println("Deu um erro em alguma das divisões.");
+        }
+
+            // vamos sacar R$ 200
+        try {
+            contaExemplo.sacar(200);
+            System.out.println("O saldo atual é de R$" + contaExemplo.getSaldo());
+        } catch (SaldoInsuficienteException e) {
+            System.out.println(e.getMessage());
+        }
+
+            // vamos sacar R$ 1000000
+        try {
+            contaExemplo.sacar(1000000);
+            System.out.println("O saldo atual é de R$" + contaExemplo.getSaldo());
+        } catch (SaldoInsuficienteException e) {
+            System.out.println(e.getMessage());
         }
     }
 
