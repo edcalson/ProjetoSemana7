@@ -1,31 +1,25 @@
+import java.io.*;
+
 public class Main {
     public static void main(String[] args) {
+        // Leitura
+        ObjectInputStream inputStream = null;
 
-        ContaCorrente contaExemplo = new ContaCorrente(1000);
-        System.out.println("O saldo atual é de R$" + contaExemplo.getSaldo());
-
-           // vamos sacar R$ 800
         try {
-            contaExemplo.sacar(80000);
-            System.out.println("O saldo atual é de R$" + contaExemplo.getSaldo());
-        } catch (SaldoInsuficienteException e) {
-            System.out.println(e.getMessage());
-        }
+            inputStream = new ObjectInputStream(new FileInputStream("contaExemplo.test"));
 
-            // vamos sacar R$ 200
-        try {
-            contaExemplo.sacar(200);
-            System.out.println("O saldo atual é de R$" + contaExemplo.getSaldo());
-        } catch (SaldoInsuficienteException e) {
-            System.out.println(e.getMessage());
-        }
-
-            // vamos sacar R$ 1000000
-        try {
-            contaExemplo.sacar(1000000);
-            System.out.println("O saldo atual é de R$" + contaExemplo.getSaldo());
-        } catch (SaldoInsuficienteException e) {
-            System.out.println(e.getMessage());
+            Object objeto = null;
+            while ((objeto = inputStream.readObject()) != null) {
+                if (objeto instanceof ContaCorrente) {
+                    ContaCorrente conta = (ContaCorrente) objeto;
+                    System.out.println(conta.getSaldo());
+                }
+            }
+            inputStream.close();
+        } catch (EOFException e ) {
+            System.out.println("Fim do arquivo alcançado!");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
